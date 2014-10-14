@@ -1,0 +1,12 @@
+*.iml
+.classpath
+.metadata
+.project
+.settings
+bin
+build.properties
+target
+*.orig
+*.log
+*.jar
+*~
