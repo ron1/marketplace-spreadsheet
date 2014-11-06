@@ -9,11 +9,11 @@
   <groupId>org.nuxeo.marketplace.spreadsheet</groupId>
   <artifactId>parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>Marketplace package of Nuxeo Spreadsheet</name>
 
   <properties>
-    <marketplace.spreadsheet.version>1.0</marketplace.spreadsheet.version>
+    <marketplace.spreadsheet.version>1.0.1-SNAPSHOT</marketplace.spreadsheet.version>
     <nuxeo.spreadsheet.version>6.0</nuxeo.spreadsheet.version>
   </properties>
 
