@@ -73,7 +73,9 @@ public class ITSpreadsheetTest extends AbstractTest {
     public void itShouldBeAvailableInWorkspace() throws DocumentBasePage.UserNotConnectedException,
         IOException {
         DocumentBasePage documentBasePage = login();
-        documentBasePage.getNavigationSubPage().goToDocument(WORKSPACE_TITLE);
+        DocumentBasePage workspacesPage = documentBasePage.getNavigationSubPage()
+            .goToDocument("Workspaces");
+        workspacesPage.getNavigationSubPage().goToDocument(WORKSPACE_TITLE);
 
         ContentViewElement contentView = getWebFragment(
             By.id("cv_document_content_0_panel"),
@@ -132,11 +134,14 @@ public class ITSpreadsheetTest extends AbstractTest {
     public void itShouldDisplayTheSameData() throws DocumentBasePage.UserNotConnectedException,
         IOException {
         DocumentBasePage documentBasePage = login();
-        documentBasePage.getNavigationSubPage().goToDocument(WORKSPACE_TITLE);
+
+        DocumentBasePage workspacesPage = documentBasePage.getNavigationSubPage()
+            .goToDocument("Workspaces");
+        workspacesPage.getNavigationSubPage().goToDocument(WORKSPACE_TITLE);
 
         ContentViewElement contentView = getWebFragment(
             By.id("cv_document_content_0_panel"),
-            ContentViewElement.class);;
+            ContentViewElement.class);
 
         contentView.switchToResultLayout(ResultLayout.LISTING);
         List<String> resultColumns = getContentViewColumns(contentView);
