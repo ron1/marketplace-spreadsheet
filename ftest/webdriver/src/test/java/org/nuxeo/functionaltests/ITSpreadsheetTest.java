@@ -48,7 +48,7 @@ public class ITSpreadsheetTest extends AbstractTest {
        "Title", "Author", "Description", "Modified", "Nature", "Subjects"
     };
 
-    private static final String IFRAME_XPATH = "//iframe[starts-with(@src, '/nuxeo/spreadsheet')]";
+    private static final String IFRAME_XPATH = "//iframe[starts-with(@src, '" + NUXEO_URL + "/spreadsheet')]";
 
     private final static String WORKSPACE_TITLE = "WorkspaceSpreadsheet_"
         + new Date().getTime();
