@@ -8,7 +8,7 @@
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>mapketplace-spreadsheet-ftest-webdriver</artifactId>
+  <artifactId>marketplace-spreadsheet-ftest-webdriver</artifactId>
   <name>Nuxeo Spreadsheet functional tests with WebDriver</name>
   <description>Nuxeo Spreadsheet functional tests with WebDriver</description>
 
