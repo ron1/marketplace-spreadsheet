@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.nuxeo.ecm.distribution</groupId>
     <artifactId>nuxeo-distribution</artifactId>
-    <version>6.0</version>
+    <version>6.0-HF01-SNAPSHOT</version>
   </parent>
 
   <groupId>org.nuxeo.marketplace.spreadsheet</groupId>
@@ -14,7 +14,7 @@
 
   <properties>
     <marketplace.spreadsheet.version>1.0.1-SNAPSHOT</marketplace.spreadsheet.version>
-    <nuxeo.spreadsheet.version>6.0</nuxeo.spreadsheet.version>
+    <nuxeo.spreadsheet.version>6.0-HF01-SNAPSHOT</nuxeo.spreadsheet.version>
   </properties>
 
   <modules>
