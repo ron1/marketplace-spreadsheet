@@ -26,7 +26,7 @@
     <dependencies>
       <dependency>
         <groupId>org.nuxeo.marketplace.spreadsheet</groupId>
-        <artifactId>marketplace</artifactId>
+        <artifactId>marketplace-spreadsheet</artifactId>
         <version>${marketplace.spreadsheet.version}</version>
         <type>zip</type>
       </dependency>
