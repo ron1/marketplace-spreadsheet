@@ -112,11 +112,7 @@ public class ITSpreadsheetTest extends AbstractTest {
         SpreadsheetPage spreadsheet = asPage(SpreadsheetPage.class);
 
         // Run a query
-        spreadsheet.query.sendKeys("SELECT * FROM Document");
-        spreadsheet.execute.click();
-
-        // wait for ajax requests to complete
-        new AjaxRequestManager(driver).waitForJQueryRequests();
+        spreadsheet.executeQuery("SELECT * FROM Document");
 
         // Should display the default columns
         List<String> headers = spreadsheet.getHeaders();
@@ -148,7 +144,7 @@ public class ITSpreadsheetTest extends AbstractTest {
 
         SpreadsheetPage spreadsheet = openSpreadsheet(contentView);
 
-        String query = spreadsheet.query.getAttribute("value");
+        String query = spreadsheet.queryInput.getAttribute("value");
         assertNotNull(query);
 
         // Should display the same columns
@@ -159,6 +155,46 @@ public class ITSpreadsheetTest extends AbstractTest {
         // Should have the same rows
         List<WebElement> rows = spreadsheet.getRows();
         assertEquals(1, rows.size());
+    }
+
+    @Test
+    public void itShouldAllowUpdatingData() throws DocumentBasePage.UserNotConnectedException,
+        IOException {
+        DocumentBasePage documentBasePage = login();
+
+        DocumentBasePage workspacesPage = documentBasePage.getNavigationSubPage()
+            .goToDocument("Workspaces");
+        workspacesPage.getNavigationSubPage().goToDocument(WORKSPACE_TITLE);
+
+        ContentViewElement contentView = getWebFragment(
+            By.id("cv_document_content_0_panel"),
+            ContentViewElement.class);
+
+        SpreadsheetPage spreadsheet = openSpreadsheet(contentView);
+
+        // First column should be the title
+        List<String> headers = spreadsheet.getHeaders();
+        assertEquals("Title", headers.get(1));
+
+        // Change the title, save and close the spreadsheet
+        spreadsheet.setData(0, 0, "'New Title'");
+        assertEquals("New Title", spreadsheet.getData(0, 0));
+
+        spreadsheet.save();
+
+        assertEquals("Saved 1 rows.", spreadsheet.getMessages());
+
+        closeSpreadsheet(spreadsheet);
+
+        // Check that the title was updated
+        contentView = getWebFragment(
+            By.id("cv_document_content_0_panel"),
+            ContentViewElement.class);
+
+        WebElement row = getContentViewRows(contentView).get(0);
+        String title = row.findElement(By.className("documentTitle")).getText();
+
+        assertEquals("New Title", title);
     }
 
     @After
@@ -185,13 +221,21 @@ public class ITSpreadsheetTest extends AbstractTest {
         assertNotNull(iFrame);
         driver.switchTo().frame(iFrame);
 
-        SpreadsheetPage spreadsheet = new SpreadsheetPage();
+        SpreadsheetPage spreadsheet = new SpreadsheetPage(driver);
         // wait for ajax requests to complete
         new AjaxRequestManager(driver).waitForJQueryRequests();
         // fill the page object
         fillElement(SpreadsheetPage.class, spreadsheet);
 
         return spreadsheet;
+    }
+
+    private void closeSpreadsheet(SpreadsheetPage spreadsheet) {
+        spreadsheet.close();
+        driver.switchTo().defaultContent();
+        AjaxRequestManager ajax = new AjaxRequestManager(driver);
+        ajax.watchAjaxRequests();
+        ajax.waitForAjaxRequests();
     }
 
     /**
@@ -206,5 +250,12 @@ public class ITSpreadsheetTest extends AbstractTest {
             headers.add(e.getText());
         }
         return headers;
+    }
+
+    /**
+     * returns the content view rows
+     */
+    private List<WebElement> getContentViewRows(ContentViewElement cv) {
+        return cv.findElements(By.cssSelector(".dataOutput > tbody > tr"));
     }
 }
